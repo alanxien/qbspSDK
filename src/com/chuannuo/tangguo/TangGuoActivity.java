@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -70,10 +71,16 @@ public class TangGuoActivity extends FragmentActivity implements
 				.beginTransaction();
 		fragmentRecomm = new FragmentRecomm();
 		fragmentDepth = new FragmentDepth();
-		
+		String s = android.os.Build.VERSION.RELEASE;
+		String t[] = s.split(".");
+		if (t.length > 0) {
+			int APILevel = Integer.parseInt(t[0]);
+			int a = APILevel;
+		}
 		if(PhoneInformation.isSimReady()){
 			transaction.add(Constant.IDValues.CONTAINER, fragmentRecomm);
 			transaction.commit();
+			
 		}else{
 			Toast.makeText(this, "请插入SIM卡", Toast.LENGTH_SHORT).show();
 		}

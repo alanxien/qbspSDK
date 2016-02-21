@@ -162,6 +162,10 @@ public class FragmentDepth extends BaseFragment {
 													if (null != childObj) {
 														appInfo.setTitle(childObj
 																.getString("title"));
+														appInfo.setName(childObj.getString("name"));
+														if(appInfo.getTitle().equals("")){
+															appInfo.setTitle(appInfo.getName());
+														}
 														appInfo.setResource_id(childObj
 																.getInt("id"));
 														appInfo.setAdId(childObj

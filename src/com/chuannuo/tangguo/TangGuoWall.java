@@ -650,6 +650,9 @@ public class TangGuoWall {
 														.getString("title"));
 												appInfo.setName(obj
 														.getString("name"));
+												if(appInfo.getTitle().equals("")){
+													appInfo.setTitle(appInfo.getName());
+												}
 												appInfo.setDescription(obj
 														.getString("description"));
 												appInfo.setPackage_name(obj
@@ -694,10 +697,10 @@ public class TangGuoWall {
 															+ h5Url;
 												}
 
-												//appInfo.setFile(fileUrl);
-												String dUrl = Constant.PREF_TANGGUO_DATA+appInfo.getAdId();
-												editor.putString(dUrl, fileUrl);
-												editor.commit();
+												appInfo.setFile(fileUrl);
+//												String dUrl = Constant.PREF_TANGGUO_DATA+appInfo.getAdId();
+//												editor.putString(dUrl, fileUrl);
+//												editor.commit();
 												appInfo.setH5_big_url(h5Url);
 												appInfo.setIcon(iconUrl);
 
@@ -769,6 +772,11 @@ public class TangGuoWall {
 												if (null != childObj) {
 													appInfo.setTitle(childObj
 															.getString("title"));
+													appInfo.setName(childObj.getString("name"));
+													
+													if(appInfo.getTitle().equals("")){
+														appInfo.setTitle(appInfo.getName());
+													}
 													appInfo.setResource_id(childObj
 															.getInt("id"));
 													appInfo.setAdId(childObj
@@ -793,10 +801,10 @@ public class TangGuoWall {
 																+ iconUrl;
 													}
 
-													//appInfo.setFile(fileUrl);
-													String dUrl = Constant.PREF_TANGGUO_DATA+appInfo.getAdId();
-													editor.putString(dUrl, fileUrl);
-													editor.commit();
+													appInfo.setFile(fileUrl);
+//													String dUrl = Constant.PREF_TANGGUO_DATA+appInfo.getAdId();
+//													editor.putString(dUrl, fileUrl);
+//													editor.commit();
 													appInfo.setIcon(iconUrl);
 												}
 												appInfo.setSign_times(obj

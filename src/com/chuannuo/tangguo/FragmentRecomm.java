@@ -59,21 +59,40 @@ public class FragmentRecomm extends BaseFragment {
 	private double score = 1;
 	private int isShow = 0;
 	private String textName = "积分";
+	private boolean isFirst = false;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		isFirst = true;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		initView();
-		initProgressDialog(Constant.StringValues.LOADING);
-		if (null == recommList) {
-			recommList = new ArrayList<AppInfo>();
+		if(isFirst){
+			initProgressDialog(Constant.StringValues.LOADING);
+			if (null == recommList) {
+				recommList = new ArrayList<AppInfo>();
+			}
+			paklist = getActivity().getPackageManager().getInstalledPackages(0);
+			/*
+			 * 上报手机已经安装的软件 各个应用包名用，隔开eg:
+			 * cn.winads.studentsearn,cn.winads.ldbatterySteward
+			 */
+			reportInstalledApp();
+			isFirst = false;
+		}else{
+//			if (null == adapter) {
+//				adapter = new RecommendTaskAdapter(getActivity(),
+//						recommList, myListView);
+//			} else {
+//				adapter.notifyDataSetChanged();
+//			}
+			myListView.setAdapter(adapter);
 		}
-		paklist = getActivity().getPackageManager().getInstalledPackages(0);
-		/*
-		 * 上报手机已经安装的软件 各个应用包名用，隔开eg:
-		 * cn.winads.studentsearn,cn.winads.ldbatterySteward
-		 */
-		reportInstalledApp();
 		return view;
 	}
 	
@@ -249,6 +268,9 @@ public class FragmentRecomm extends BaseFragment {
 															.getString("title"));
 													appInfo.setName(obj
 															.getString("name"));
+													if(appInfo.getTitle().equals("")){
+														appInfo.setTitle(appInfo.getName());
+													}
 													appInfo.setDescription(obj
 															.getString("description"));
 													appInfo.setPackage_name(obj
@@ -293,10 +315,10 @@ public class FragmentRecomm extends BaseFragment {
 																+ h5Url;
 													}
 
-													//appInfo.setFile(fileUrl);
-													String dUrl = Constant.PREF_TANGGUO_DATA+appInfo.getAdId();
-													editor.putString(dUrl, fileUrl);
-													editor.commit();
+													appInfo.setFile(fileUrl);
+//													String dUrl = Constant.PREF_TANGGUO_DATA+appInfo.getAdId();
+//													editor.putString(dUrl, fileUrl);
+//													editor.commit();
 													appInfo.setH5_big_url(h5Url);
 													appInfo.setIcon(iconUrl);
 
